@@ -1,74 +1,185 @@
 "use client";
 
+import { useEffect, useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
-import { useRef } from "react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+gsap.registerPlugin(ScrollTrigger);
 
 export default function Hero() {
-    const containerRef = useRef<HTMLDivElement>(null);
-    const { scrollYProgress } = useScroll({
-        target: containerRef,
-        offset: ["start start", "end start"],
-    });
+    const containerRef = useRef<HTMLElement>(null);
+    const imageRef = useRef<HTMLDivElement>(null);
+    const contentRef = useRef<HTMLDivElement>(null);
 
-    const scale = useTransform(scrollYProgress, [0, 1], [1, 1.2]);
-    const opacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
-    const textY = useTransform(scrollYProgress, [0, 1], [0, 100]);
+    const { scrollY } = useScroll();
+    const yRotate = useTransform(scrollY, [0, 800], [0, -10]);
+
+    useEffect(() => {
+        const container = containerRef.current;
+        const image = imageRef.current;
+        const content = contentRef.current;
+        if (!container || !image || !content) return;
+
+        // Cinematic Horizontal Peel Reveal
+        const ctx = gsap.context(() => {
+            gsap.fromTo(".char",
+                { y: "110%", rotationX: -15, opacity: 0 },
+                {
+                    y: "0%",
+                    rotationX: 0,
+                    opacity: 1,
+                    duration: 1.4,
+                    stagger: 0.02,
+                    ease: "power4.out",
+                    delay: 0.5
+                }
+            );
+
+            gsap.fromTo(image,
+                { scale: 1.15, filter: "brightness(0.3) blur(10px)" },
+                { scale: 1, filter: "brightness(1) blur(0px)", duration: 2, ease: "power2.out" }
+            );
+
+            // Scale-Sync Scroll Effect
+            gsap.to(image, {
+                scale: 0.85,
+                borderRadius: "40px",
+                scrollTrigger: {
+                    trigger: container,
+                    start: "top top",
+                    end: "bottom top",
+                    scrub: true,
+                }
+            });
+
+            gsap.to(content, {
+                opacity: 0,
+                y: -100,
+                scale: 0.95,
+                scrollTrigger: {
+                    trigger: container,
+                    start: "top top",
+                    end: "60% top",
+                    scrub: true,
+                }
+            });
+        }, container);
+
+        return () => ctx.revert();
+    }, []);
+
+    const headline = "FORGING ELITE LEGACIES.";
+    const titleArr = headline.split("");
 
     return (
-        <section ref={containerRef} className="relative h-screen w-full overflow-hidden">
-            {/* Background Image with Zoom */}
-            <motion.div
-                className="absolute inset-0 z-0"
-                style={{ scale }}
-            >
-                <div className="absolute inset-0 bg-black/40 z-10" /> {/* Overlay */}
-                <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-black/20 z-10" /> {/* Gradient */}
-                {/* Fallback gradient until image is generated */}
-                <div className="w-full h-full bg-gradient-to-br from-gray-900 to-black select-none">
+        <section
+            ref={containerRef}
+            className="relative h-[120vh] bg-background overflow-visible"
+        >
+            <div className="sticky top-0 h-screen w-full flex items-center justify-center overflow-hidden">
+                {/* Background Layer with subtle blob */}
+                <div className="bg-blob -top-1/4 -left-1/4 opacity-20" />
+                <div
+                    ref={imageRef}
+                    className="absolute inset-0 z-0 origin-center gpu-accelerate"
+                >
+                    <div className="absolute inset-0 bg-black/40 z-[1]" />
+                    <div className="absolute inset-0 overlay-cinematic z-[2]" />
                     <img
                         src="/images/hero-gym-dark.jpg"
-                        alt="Iron Pulse Gym"
-                        className="w-full h-full object-cover opacity-80"
-                        onError={(e) => {
-                            e.currentTarget.style.display = 'none';
-                        }}
+                        alt="Iron Pulse Elite"
+                        className="w-full h-full object-cover animate-slow-zoom"
                     />
                 </div>
-            </motion.div>
 
-            {/* Content */}
-            <div className="relative z-20 h-full flex flex-col items-center justify-center text-center px-4">
-                <motion.div style={{ y: textY, opacity }}>
-                    <motion.h1
-                        className="text-[15vw] md:text-[12vw] leading-[0.85] font-bebas text-white tracking-tighter"
-                        initial={{ opacity: 0, y: 100 }}
+                {/* Floating Depth Elements */}
+                <motion.div
+                    className="absolute inset-0 pointer-events-none z-[3]"
+                    style={{ rotateX: yRotate }}
+                >
+                    <div className="absolute top-[15%] left-[10%] w-[30vw] h-[1px] bg-gradient-to-r from-gold/40 to-transparent" />
+                    <div className="absolute bottom-[25%] right-[10%] w-[40vw] h-[1px] bg-gradient-to-l from-gold/30 to-transparent" />
+                </motion.div>
+
+                {/* Central Content */}
+                <div
+                    ref={contentRef}
+                    className="relative z-10 w-full px-6 flex flex-col items-center justify-center text-center"
+                >
+                    <motion.div
+                        className="mb-8"
+                        initial={{ opacity: 0, y: 30 }}
                         animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 1, ease: "easeOut" }}
+                        transition={{ duration: 1.2, delay: 0.2 }}
                     >
-                        IRON <span className="text-transparent bg-clip-text bg-gradient-to-r from-neon to-emerald-500">PULSE</span>
-                    </motion.h1>
+                        <span className="section-label">Institutional Class Fitness</span>
+                        <div className="divider-gold mx-auto mt-2" />
+                    </motion.div>
 
-                    <motion.p
-                        className="mt-6 text-xl md:text-3xl text-white/80 font-medium tracking-widest uppercase"
+                    <h1 className="heading-display text-[15vw] md:text-[11vw] text-white tracking-tighter flex flex-wrap justify-center overflow-hidden h-[1.1em] mask-text">
+                        {titleArr.map((char, i) => (
+                            <span key={i} className="char inline-block whitespace-pre">
+                                {char}
+                            </span>
+                        ))}
+                    </h1>
+
+                    <div className="max-w-3xl mx-auto mt-12 grid grid-cols-1 md:grid-cols-2 gap-12 items-baseline">
+                        <motion.p
+                            className="text-sm md:text-base font-inter tracking-[0.15em] text-foreground/70 uppercase text-balance leading-loose md:text-left"
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            transition={{ duration: 1.5, delay: 1.2 }}
+                        >
+                            We provide more than training. We provide a sanctuary for those who demand the pinnacle of physical performance.
+                        </motion.p>
+
+                        <motion.div
+                            className="flex flex-col gap-4 md:items-end"
+                            initial={{ opacity: 0, x: 20 }}
+                            animate={{ opacity: 1, x: 0 }}
+                            transition={{ duration: 1.2, delay: 1.4 }}
+                        >
+                            <a href="#pricing" className="btn-gold px-12 py-5 rounded-sm text-sm">
+                                START JOURNEY
+                            </a>
+                            <span className="text-[11px] font-inter tracking-widest text-gold/70 uppercase">
+                                Mumbai · London · New York
+                            </span>
+                        </motion.div>
+                    </div>
+                </div>
+
+                {/* Bottom Decor */}
+                <div className="absolute bottom-12 left-12 z-20 hidden md:block">
+                    <div className="flex items-center gap-4 text-white/30">
+                        <div className="w-12 h-[1px] bg-current" />
+                        <span className="text-[12px] tracking-[0.35em] uppercase font-inter">Institutional Authority</span>
+                    </div>
+                </div>
+
+                <div className="absolute bottom-12 right-12 z-20">
+                    <motion.div
+                        className="w-10 h-16 border border-white/10 rounded-full flex justify-center p-2"
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
-                        transition={{ delay: 0.8, duration: 1 }}
+                        transition={{ delay: 2 }}
                     >
-                        Forge Your Legacy
-                    </motion.p>
-                </motion.div>
+                        <motion.div
+                            className="w-1 h-2 bg-gold border rounded-full"
+                            animate={{ y: [0, 10, 0], opacity: [0.3, 1, 0.3] }}
+                            transition={{ duration: 2, repeat: Infinity }}
+                        />
+                    </motion.div>
+                </div>
             </div>
 
-            {/* Scroll Indicator */}
-            <motion.div
-                className="absolute bottom-10 left-1/2 -translate-x-1/2 z-20 flex flex-col items-center gap-2"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 1.5, duration: 1 }}
-            >
-                <span className="text-xs text-white/50 tracking-widest uppercase">Scroll</span>
-                <div className="w-[1px] h-12 bg-gradient-to-b from-neon to-transparent" />
-            </motion.div>
+            <style jsx>{`
+                .mask-text {
+                    perspective: 1000px;
+                }
+            `}</style>
         </section>
     );
 }
