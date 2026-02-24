@@ -25,6 +25,18 @@
   --font-bebas: var(--font-bebas);
   --font-body: var(--font-montserrat);
   --font-inter: var(--font-inter);
+
+  /* ── Breakpoints ── */
+  --breakpoint-xs: 375px;
+}
+
+/* Optimize text rendering for mobile / high-density screens */
+@supports (text-rendering: optimizeLegibility) {
+  html {
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
 }
 
 /* ━━━━━━━━━━ BASE ━━━━━━━━━━ */

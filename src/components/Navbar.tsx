@@ -48,10 +48,10 @@ export default function Navbar() {
                             </div>
                         </div>
                         <div className="flex flex-col">
-                            <span className="text-xl font-bebas tracking-[0.2em] text-foreground leading-none">
+                            <span className="text-xl font-bebas tracking-[0.2em] text-foreground leading-[1.1]">
                                 IRON <span className="text-gold">PULSE</span>
                             </span>
-                            <span className="text-[10px] font-inter tracking-[0.4em] text-foreground-muted uppercase mt-0.5">
+                            <span className="text-[10px] font-inter tracking-[0.2em] md:tracking-[0.4em] text-foreground-muted uppercase mt-0.5 whitespace-nowrap">
                                 Elite Fitness Hub
                             </span>
                         </div>
@@ -114,12 +114,12 @@ export default function Navbar() {
                     onClick={() => setMobileOpen(false)}
                 />
                 <motion.div
-                    className="absolute top-0 right-0 w-full xs:w-[350px] h-full bg-background-2 p-10 flex flex-col justify-center"
+                    className="absolute top-0 right-0 w-full xs:w-[350px] h-full bg-background-2 p-10 flex flex-col justify-center overflow-y-auto"
                     initial={{ x: "100%" }}
                     animate={{ x: mobileOpen ? 0 : "100%" }}
                     transition={{ type: "spring", damping: 30, stiffness: 200 }}
                 >
-                    <div className="space-y-8">
+                    <div className="space-y-8 my-auto">
                         {navLinks.map((link, i) => (
                             <motion.div
                                 key={link.label}
@@ -129,7 +129,7 @@ export default function Navbar() {
                             >
                                 <Link
                                     href={link.href}
-                                    className="text-4xl font-bebas text-foreground hover:text-gold tracking-wider transition-colors"
+                                    className="text-3xl xs:text-4xl sm:text-5xl font-bebas text-foreground hover:text-gold tracking-wider transition-colors"
                                     onClick={() => setMobileOpen(false)}
                                 >
                                     {link.label}
