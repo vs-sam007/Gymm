@@ -117,10 +117,14 @@ export default function Hero() {
                         <div className="divider-gold mx-auto mt-2" />
                     </motion.div>
 
-                    <h1 className="heading-display text-[15vw] md:text-[11vw] text-white tracking-tighter flex flex-wrap justify-center overflow-hidden h-[1.1em] mask-text">
-                        {titleArr.map((char, i) => (
-                            <span key={i} className="char inline-block whitespace-pre">
-                                {char}
+                    <h1 className="heading-display text-[12vw] xs:text-[13vw] md:text-[11vw] text-white tracking-tighter flex flex-wrap justify-center md:overflow-hidden md:h-[1.1em] leading-[1] md:leading-[0.88] mask-text">
+                        {headline.split(" ").map((word, wordIdx) => (
+                            <span key={wordIdx} className="inline-block whitespace-nowrap mx-[0.15em]">
+                                {word.split("").map((char, charIdx) => (
+                                    <span key={`${wordIdx}-${charIdx}`} className="char inline-block whitespace-pre">
+                                        {char}
+                                    </span>
+                                ))}
                             </span>
                         ))}
                     </h1>
