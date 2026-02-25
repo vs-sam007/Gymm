@@ -36,9 +36,19 @@ export default function Hero() {
                 }
             );
 
+            // Flicker entry sequence
+            const flickerTl = gsap.timeline({ delay: 0.5 });
+            flickerTl
+                .to(image, { filter: "brightness(0.1)", duration: 0.05 })
+                .to(image, { filter: "brightness(0.6)", duration: 0.05 })
+                .to(image, { filter: "brightness(0.2)", duration: 0.1 })
+                .to(image, { filter: "brightness(0.9)", duration: 0.05 })
+                .to(image, { filter: "brightness(0.3)", duration: 0.15 })
+                .to(image, { filter: "brightness(1) blur(0px)", duration: 1.5, ease: "power2.out" });
+
             gsap.fromTo(image,
-                { scale: 1.15, filter: "brightness(0.3) blur(10px)" },
-                { scale: 1, filter: "brightness(1) blur(0px)", duration: 2, ease: "power2.out" }
+                { scale: 1.15 },
+                { scale: 1, duration: 2.5, ease: "power2.out" }
             );
 
             // Scale-Sync Scroll Effect
