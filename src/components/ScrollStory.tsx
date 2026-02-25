@@ -42,12 +42,11 @@ export default function ScrollStory({
         const ctx = gsap.context(() => {
             // Main Wrapper Reveal (Curving corner + Scaling)
             gsap.fromTo(wrapper,
-                { scale: 1, borderRadius: "0px", opacity: 1, filter: "blur(0px)" },
+                { scale: 1, borderRadius: "0px", opacity: 1 },
                 {
-                    scale: 0.82,
-                    borderRadius: "48px",
-                    opacity: 0.35,
-                    filter: "blur(4px)",
+                    scale: 0.92,
+                    borderRadius: "24px",
+                    opacity: 0.4,
                     scrollTrigger: {
                         trigger: section,
                         start: "top top",

@@ -95,11 +95,9 @@ const ChalkBlast = forwardRef<ChalkBlastHandle>((props, ref) => {
             scrollVelocity.current = Math.min(diff, 100);
             lastScrollY.current = currentScrollY;
 
-            // Sensitivity threshold significantly lowered (from 50 to 5)
-            // This ensures even slow scrolls trigger the "chalk" feel
-            if (diff > 5 && particles.current.length < 400) {
-                const spawnCount = diff > 30 ? 15 : 4;
-                for (let k = 0; k < (diff > 50 ? 2 : 1); k++) {
+            if (diff > 10 && particles.current.length < 300) {
+                const spawnCount = diff > 40 ? 12 : 3;
+                for (let k = 0; k < (diff > 60 ? 2 : 1); k++) {
                     createParticles(
                         Math.random() * window.innerWidth,
                         Math.random() * window.innerHeight,
@@ -124,8 +122,8 @@ const ChalkBlast = forwardRef<ChalkBlastHandle>((props, ref) => {
     return (
         <canvas
             ref={canvasRef}
-            className="fixed inset-0 pointer-events-none z-[100] opacity-50"
-            style={{ mixBlendMode: 'screen', filter: 'blur(1px)' }}
+            className="fixed inset-0 pointer-events-none z-[2] opacity-30"
+            style={{ mixBlendMode: 'screen' }}
         />
     );
 });
