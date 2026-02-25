@@ -53,12 +53,12 @@ export default function SmartFitness() {
                         </motion.div>
 
                         <motion.h2
-                            className="text-5xl md:text-8xl font-bebas text-white leading-[0.9] tracking-tighter mb-10"
+                            className="text-5xl md:text-8xl font-bebas text-white leading-[1.1] tracking-tighter mb-10 pr-10"
                             initial={{ opacity: 0, y: 30 }}
                             whileInView={{ opacity: 1, y: 0 }}
                         >
                             SMART <br />
-                            <span className="text-gold italic font-light" style={{ fontFamily: 'var(--font-playfair)' }}>Ecosystem</span>
+                            <span className="text-gold italic font-light inline-block pr-[0.15em]" style={{ fontFamily: 'var(--font-playfair)' }}>Ecosystem</span>
                         </motion.h2>
 
                         <div className="space-y-10">

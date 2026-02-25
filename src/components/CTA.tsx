@@ -24,12 +24,12 @@ export default function CTA() {
                         </motion.div>
 
                         <motion.h2
-                            className="text-6xl md:text-[10vw] font-bebas text-white leading-[0.85] tracking-tighter mb-12"
+                            className="text-6xl md:text-[10vw] font-bebas text-white leading-[1.1] tracking-tighter mb-12 pr-10"
                             initial={{ opacity: 0, y: 30 }}
                             whileInView={{ opacity: 1, y: 0 }}
                         >
                             THE FUTURE <br />
-                            <span className="text-gold italic font-light" style={{ fontFamily: 'var(--font-playfair)' }}>In Your Hands.</span>
+                            <span className="text-gold italic font-light inline-block pr-[0.15em]" style={{ fontFamily: 'var(--font-playfair)' }}>In Your Hands.</span>
                         </motion.h2>
 
                         <div className="flex flex-col sm:flex-row gap-6">

@@ -12,12 +12,12 @@ import ClassSchedule from "@/components/ClassSchedule";
 import LocationAndApp from "@/components/LocationAndApp";
 import CTA from "@/components/CTA";
 import HorizontalTicker from "@/components/HorizontalTicker";
-import ChalkBlast from "@/components/ChalkBlast";
+
 
 export default function Home() {
   return (
     <main className="bg-background min-h-screen text-foreground relative overflow-hidden">
-      <ChalkBlast />
+
       {/* Global Background Blobs for Density */}
       <div className="bg-blob top-[15%] -left-[10%] opacity-10" />
       <div className="bg-blob top-[45%] -right-[10%] opacity-[0.07]" />

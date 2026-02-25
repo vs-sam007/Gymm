@@ -117,7 +117,7 @@ export default function ScrollStory({
                                 <div className="h-[1px] w-24 bg-gold/30" />
                             </motion.div>
 
-                            <h2 className="text-6xl sm:text-7xl md:text-[10vw] font-bebas text-white leading-[0.85] tracking-tighter mb-8 italic italic-luxury">
+                            <h2 className="text-6xl sm:text-7xl md:text-[10vw] font-bebas text-white leading-[1.1] tracking-tighter mb-8 italic italic-luxury pr-10">
                                 {title}
                             </h2>
                         </div>

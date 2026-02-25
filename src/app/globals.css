@@ -90,7 +90,7 @@ body {
 /* ━━━━━━━━━━ TYPOGRAPHY ━━━━━━━━━━ */
 .heading-display {
   font-family: var(--font-bebas);
-  line-height: 0.88;
+  line-height: 1.05;
   letter-spacing: -0.01em;
 }
 

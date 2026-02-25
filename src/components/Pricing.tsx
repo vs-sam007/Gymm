@@ -49,7 +49,7 @@ export default function Pricing() {
                     </motion.div>
 
                     <motion.h2
-                        className="text-5xl md:text-8xl font-bebas text-white tracking-widest leading-[0.9]"
+                        className="text-5xl md:text-8xl font-bebas text-white tracking-widest leading-tight pr-10"
                         initial={{ opacity: 0, y: 30 }}
                         whileInView={{ opacity: 1, y: 0 }}
                     >

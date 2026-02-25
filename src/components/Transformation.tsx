@@ -56,12 +56,12 @@ export default function Transformation() {
                             <div className="divider-gold" />
                         </motion.div>
                         <motion.h2
-                            className="text-5xl md:text-8xl font-bebas text-white leading-[0.9] tracking-tighter"
+                            className="text-5xl md:text-8xl font-bebas text-white leading-[1.1] tracking-tighter pr-10"
                             initial={{ opacity: 0, y: 30 }}
                             whileInView={{ opacity: 1, y: 0 }}
                         >
                             THE IRON <br />
-                            <span className="text-gold italic font-light" style={{ fontFamily: 'var(--font-playfair)' }}>Testimonials</span>
+                            <span className="text-gold italic font-light inline-block pr-[0.15em]" style={{ fontFamily: 'var(--font-playfair)' }}>Testimonials</span>
                         </motion.h2>
                     </div>
 
